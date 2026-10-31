@@ -72,7 +72,7 @@ nav a:hover{color:var(--red)}nav a:hover::after{width:100%}
 .menu-toggle span{display:block;width:28px;height:3px;background:#fff;margin:6px 0;border-radius:2px}
 
 /* Hero */
-.hero{position:relative;color:#fff;padding:120px 0 140px;background:#000 url('assets/img/ute-jetter.jpg') center 30%/cover no-repeat;overflow:hidden}
+.hero{position:relative;color:#fff;padding:120px 0 140px;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.82) 50%,rgba(60,0,0,.55) 100%)}
 .hero::after{content:"";position:absolute;right:-120px;bottom:-140px;width:520px;height:520px;background:url('assets/logo-icon.png') center/contain no-repeat;opacity:.08;pointer-events:none}
 .hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
@@ -251,9 +251,122 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
   .quote-card .row{grid-template-columns:1fr}
   .t-track{grid-auto-columns:88%}
 }
+
+/* ===== Animations ===== */
+#preloader{position:fixed;inset:0;background:var(--black);z-index:999;display:grid;place-items:center;transition:opacity .6s,visibility .6s}
+#preloader.hide{opacity:0;visibility:hidden}
+#preloader .roo{width:130px;animation:hop .9s cubic-bezier(.4,0,.6,1) infinite}
+#preloader .shadow{width:70px;height:10px;background:rgba(229,57,53,.35);border-radius:50%;margin:6px auto 0;animation:shadow .9s cubic-bezier(.4,0,.6,1) infinite}
+#preloader .bar{width:160px;height:3px;background:#222;margin:22px auto 0;border-radius:3px;overflow:hidden}
+#preloader .bar::after{content:"";display:block;height:100%;width:40%;background:var(--red);animation:load 1s ease-in-out infinite}
+@keyframes hop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-34px) rotate(-6deg)}}
+@keyframes shadow{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.55);opacity:.4}}
+@keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red),#ff8a65);z-index:100;box-shadow:0 0 10px var(--red)}
+
+header{transition:box-shadow .3s}
+header .container{transition:height .3s}
+header.shrink .container{height:68px}
+header.shrink .logo img{height:46px}
+.logo img{transition:height .3s,transform .4s}
+.logo:hover img{transform:rotate(-8deg) scale(1.08)}
+
+/* Hero */
+.hero{background:#000;isolation:isolate}
+.hero-bg{position:absolute;inset:-4%;background:url('assets/img/ute-jetter.jpg') center 30%/cover no-repeat;animation:kenburns 22s ease-in-out infinite alternate;z-index:-1}
+.hero::before{z-index:0}
+@keyframes kenburns{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1%)}}
+.hero::after{animation:roo-float 6s ease-in-out infinite}
+@keyframes roo-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-24px) rotate(-4deg)}}
+.hero .anim{opacity:0;transform:translateY(40px);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .anim.d1{animation-delay:.15s}.hero .anim.d2{animation-delay:.3s}.hero .anim.d3{animation-delay:.45s}.hero .anim.d4{animation-delay:.6s}.hero .anim.d5{animation-delay:.75s}
+.quote-card.anim{transform:translateX(60px);animation:left 1s cubic-bezier(.2,.7,.2,1) .5s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+@keyframes left{to{opacity:1;transform:none}}
+.rotator{display:inline-block;color:#fff;border-bottom:2px solid var(--red);min-width:8ch;transition:opacity .35s,transform .35s}
+.rotator.out{opacity:0;transform:translateY(-10px)}
+.particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particles i{position:absolute;bottom:-20px;width:8px;height:11px;background:rgba(229,57,53,.55);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh) scale(1.1);opacity:0}}
+.scroll-down{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:1;width:26px;height:42px;border:2px solid rgba(255,255,255,.6);border-radius:14px}
+.scroll-down::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;background:var(--red);border-radius:2px;animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(14px)}}
+
+/* Button shine */
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg)}
+.btn:hover::after{animation:shine .8s}
+@keyframes shine{to{left:130%}}
+.btn-red{box-shadow:0 8px 20px rgba(229,57,53,.35)}
+.btn:hover{transform:translateY(-3px)}
+
+/* Marquee */
+.marquee{background:var(--red);color:#fff;overflow:hidden;padding:18px 0;transform:rotate(-1.2deg);margin:-14px 0;position:relative;z-index:2;box-shadow:0 10px 30px rgba(229,57,53,.3)}
+.marquee .track{display:flex;width:max-content;animation:marq 28s linear infinite}
+.marquee span{font-family:var(--head);font-weight:900;font-style:italic;text-transform:uppercase;font-size:1.5rem;padding:0 28px;display:flex;align-items:center;gap:28px;white-space:nowrap}
+.marquee span::after{content:"";width:34px;height:34px;background:url('assets/logo-icon.png') center/contain no-repeat;filter:brightness(0) invert(1)}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Service cards */
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(229,57,53,.06),transparent 60%);opacity:0;transition:.4s}
+.svc:hover::before{opacity:1}
+.svc:hover .icon{animation:wobble .6s}
+@keyframes wobble{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg) scale(1.1)}50%{transform:rotate(10deg) scale(1.1)}75%{transform:rotate(-5deg)}}
+.svc .num{transition:.4s}
+.svc:hover .num{color:rgba(229,57,53,.15);transform:scale(1.2)}
+.tilt{transform-style:preserve-3d;will-change:transform}
+
+/* Reveal variants */
+.reveal.left{transform:translateX(-50px)}
+.reveal.right{transform:translateX(50px)}
+.reveal.zoom{transform:scale(.88)}
+.reveal.in{transform:none}
+.about-media .badge{animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.about-media::before{content:"";position:absolute;top:-18px;left:-18px;width:120px;height:120px;border-top:5px solid var(--red);border-left:5px solid var(--red);border-radius:6px 0 0 0;z-index:-1}
+.about-media{z-index:0}
+.step .n{transition:.4s}
+.step:hover .n{background:var(--red);transform:rotate(-8deg)}
+.step:hover .n svg{fill:#fff}
+
+/* Feature image zoom */
+.feature .img{transition:transform 1.2s ease}
+.feature:hover .img{transform:scale(1.05)}
+.feature .wrap{overflow:hidden}
+
+/* Stats */
+.stat strong{transition:transform .3s}
+.stat:hover strong{transform:scale(1.1) rotate(-3deg)}
+
+/* Testimonials */
+.t-card .stars span{display:inline-block;opacity:0;transform:scale(0)}
+.t-track.in .t-card .stars span{animation:pop .4s forwards}
+.t-card .stars span:nth-child(2){animation-delay:.1s!important}.t-card .stars span:nth-child(3){animation-delay:.2s!important}.t-card .stars span:nth-child(4){animation-delay:.3s!important}.t-card .stars span:nth-child(5){animation-delay:.4s!important}
+@keyframes pop{60%{transform:scale(1.4)}to{opacity:1;transform:scale(1)}}
+.t-card:hover .av{animation:wobble .6s}
+
+/* Projects */
+.proj .ph{position:relative}
+.proj .ph::after{content:"+";position:absolute;inset:0;background:rgba(229,57,53,.75);color:#fff;font-size:3rem;font-weight:300;display:grid;place-items:center;opacity:0;transform:scale(1.1);transition:.4s}
+.proj:hover .ph::after{opacity:1;transform:scale(1)}
+
+/* CTA pulse ring */
+.cta .btn-red{animation:pulse 2.2s infinite}
+
+/* Back to top */
+#toTop{position:fixed;left:20px;bottom:20px;width:48px;height:48px;border-radius:50%;background:var(--black);color:#fff;border:2px solid var(--red);font-size:1.2rem;cursor:pointer;z-index:60;opacity:0;transform:translateY(20px);transition:.3s}
+#toTop.show{opacity:1;transform:none}
+#toTop:hover{background:var(--red)}
+
+@media(max-width:600px){.marquee span{font-size:1.1rem}.scroll-down{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero .anim,.quote-card.anim,.reveal{opacity:1!important;transform:none!important}.t-card .stars span{opacity:1;transform:none}}
 </style>
 </head>
 <body>
+<div id="preloader"><div><img class="roo" src="assets/logo-icon.png" alt=""><div class="shadow"></div><div class="bar"></div></div></div>
+<div id="progress"></div>
 
 <div class="topbar">
   <div class="container">
@@ -292,22 +405,24 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
 </header>
 
 <section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="particles" id="particles"></div>
   <div class="container">
     <div>
-      <div class="eyebrow">Plumbing &amp; gas · Yangebup &amp; Cockburn</div>
-      <h1>Local, trusted &amp; <span class="red">ready when you need us.</span></h1>
-      <p class="lead">Reliable, high-quality plumbing and gas solutions across the region, built on experience, precision and long-term customer trust. Whether it's urgent work or a planned upgrade, we get the job done properly the first time.</p>
-      <div class="actions">
+      <div class="eyebrow anim d1"><span class="rotator" id="rotator">Plumbing</span>&nbsp;· Yangebup &amp; Cockburn</div>
+      <h1 class="anim d2">Local, trusted &amp; <span class="red">ready when you need us.</span></h1>
+      <p class="lead anim d3">Reliable, high-quality plumbing and gas solutions across the region, built on experience, precision and long-term customer trust. Whether it's urgent work or a planned upgrade, we get the job done properly the first time.</p>
+      <div class="actions anim d4">
         <a href="tel:0402142510" class="btn btn-red">Call 0402 142 510</a>
         <a href="#services" class="btn btn-outline">Our services →</a>
       </div>
-      <div class="trust">
+      <div class="trust anim d5">
         <div><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-2 16-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8z"/></svg>Licensed &amp; experienced</div>
         <div><svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>On time, every time</div>
         <div><span class="stars">★★★★★</span>5-star reviews</div>
       </div>
     </div>
-    <div class="quote-card" id="quote">
+    <div class="quote-card anim" id="quote">
       <h3>Book a plumber</h3>
       <p>Send us your job details and we'll get back to you quickly.</p>
       <form id="quoteForm">
@@ -332,7 +447,11 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
       </form>
     </div>
   </div>
+  <a href="#services" class="scroll-down" aria-label="Scroll down"></a>
 </section>
+
+<div class="marquee" aria-hidden="true"><div class="track"><span>Plumbing</span><span>Gas Fitting</span><span>Hot Water</span><span>Blocked Drains</span><span>Emergency Plumbing</span><span>Leak Detection</span><span>Maintenance</span><span>Yangebup &amp; Cockburn</span><span>Plumbing</span><span>Gas Fitting</span><span>Hot Water</span><span>Blocked Drains</span><span>Emergency Plumbing</span><span>Leak Detection</span><span>Maintenance</span><span>Yangebup &amp; Cockburn</span></div></div>
+
 
 <section class="services" id="services">
   <div class="container">
@@ -341,22 +460,22 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
       <h2>Plumbing &amp; gas done <span class="red">properly</span> the first time</h2>
     </div>
     <div class="services-grid">
-      <div class="svc reveal"><span class="num">01</span>
+      <div class="svc reveal tilt"><span class="num">01</span>
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
         <h3>General Plumbing</h3><p>Taps, toilets, sinks, water lines and fixture installs for homes across the Cockburn area.</p><a href="#quote" class="more">Book now →</a></div>
-      <div class="svc reveal"><span class="num">02</span>
+      <div class="svc reveal tilt"><span class="num">02</span>
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M13.5.7s.7 2.6.7 4.8c0 2-1.3 3.7-3.4 3.7-2 0-3.5-1.7-3.5-3.7l.03-.36C5.2 7.6 4 10.7 4 14a8 8 0 0 0 16 0c0-5.4-2.6-10.2-6.5-13.3zM11.7 19c-1.8 0-3.2-1.4-3.2-3.1 0-1.6 1-2.8 2.8-3.1 1.8-.4 3.6-1.2 4.6-2.6.4 1.3.6 2.6.6 4 0 2.6-2.1 4.8-4.8 4.8z"/></svg></div>
         <h3>Gas Fitting</h3><p>Gas appliance installs, connections and safety checks by licensed gas fitters.</p><a href="#quote" class="more">Book now →</a></div>
-      <div class="svc reveal"><span class="num">03</span>
+      <div class="svc reveal tilt"><span class="num">03</span>
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2c-5.3 6-8 10.4-8 13.3A8 8 0 0 0 12 23a8 8 0 0 0 8-7.7C20 12.4 17.3 8 12 2zm0 18c-2.8 0-5-2.1-5-4.7 0-.5.4-.9.9-.9s.9.4.9.9c0 1.6 1.4 2.9 3.2 2.9.5 0 .9.4.9.9s-.4.9-.9.9z"/></svg></div>
         <h3>Hot Water</h3><p>Hot water system repairs, replacements and new installations, gas or electric.</p><a href="#quote" class="more">Book now →</a></div>
-      <div class="svc reveal"><span class="num">04</span>
+      <div class="svc reveal tilt"><span class="num">04</span>
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 3h16v4H4zm2 6h12v3H6zm2 5h8v3H8zm2 5h4v3h-4z"/></svg></div>
         <h3>Blocked Drains</h3><p>High-pressure jetting, root removal and drain clearing to get things flowing again.</p><a href="#quote" class="more">Book now →</a></div>
-      <div class="svc reveal"><span class="num">05</span>
+      <div class="svc reveal tilt"><span class="num">05</span>
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
         <h3>Emergency Plumbing</h3><p>Burst pipes, leaks and urgent breakdowns handled promptly when you need us.</p><a href="tel:0402142510" class="more">Call now →</a></div>
-      <div class="svc reveal"><span class="num">06</span>
+      <div class="svc reveal tilt"><span class="num">06</span>
         <div class="icon"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 2.7c-.6.3-1.2.6-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1L11 21h4l.4-2.7c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5L19.4 13zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></div>
         <h3>Maintenance</h3><p>Routine maintenance and planned upgrades to keep your plumbing and gas running safely.</p><a href="#quote" class="more">Book now →</a></div>
     </div>
@@ -365,11 +484,11 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
 
 <section class="about" id="about">
   <div class="container">
-    <div class="about-media reveal">
+    <div class="about-media reveal left">
       <img src="assets/img/tradie-roots.jpg" alt="KD Plumbing &amp; Gas plumber holding tree roots removed from a blocked drain">
       <div class="badge"><strong>100%</strong><span>Local business</span></div>
     </div>
-    <div class="reveal">
+    <div class="reveal right">
       <div class="eyebrow">About KD Plumbing &amp; Gas</div>
       <h2>Your local plumbers in <span class="red">Yangebup</span></h2>
       <p>KD Plumbing &amp; Gas is a local plumbing and gas business proudly servicing Yangebup and the Cockburn area. Our focus is simple: <strong>get the job done properly the first time.</strong> No shortcuts, clear communication and tidy work every time.</p>
@@ -393,7 +512,7 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
 <section class="feature">
   <div class="wrap">
     <div class="img" role="img" aria-label="Drain jetter clearing a blocked drain under dug-up paving"></div>
-    <div class="txt reveal">
+    <div class="txt reveal right">
       <div class="eyebrow">Blocked drains</div>
       <h2>Tree roots? Blockages? <span class="red">We clear them.</span></h2>
       <p>Slow drains and overflowing gullies are often caused by tree roots and built-up debris. We use high-pressure drain jetting and pipe inspection to find the problem and clear it properly, not just push it further down the line.</p>
@@ -412,10 +531,10 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
 
 <section class="stats">
   <div class="container stats-grid">
-    <div class="stat"><strong>5★</strong><span>Customer reviews</span></div>
-    <div class="stat"><strong>100%</strong><span>Locally owned</span></div>
-    <div class="stat"><strong>Licensed</strong><span>Plumbing &amp; gas</span></div>
-    <div class="stat"><strong>On time</strong><span>Every time</span></div>
+    <div class="stat reveal zoom"><strong><span class="count" data-to="5">0</span>★</strong><span>Customer reviews</span></div>
+    <div class="stat reveal zoom"><strong><span class="count" data-to="100">0</span>%</strong><span>Locally owned</span></div>
+    <div class="stat reveal zoom"><strong>Licensed</strong><span>Plumbing &amp; gas</span></div>
+    <div class="stat reveal zoom"><strong>On time</strong><span>Every time</span></div>
   </div>
 </section>
 
@@ -429,19 +548,19 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
     </div>
     <div class="t-track reveal" id="tTrack">
       <div class="t-card"><svg class="q" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
-        <div class="stars">★★★★★</div><blockquote>Great service. On time, friendly and helpful.</blockquote>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><blockquote>Great service. On time, friendly and helpful.</blockquote>
         <div class="who"><span class="av">SM</span><div><strong>Stephen Mawson</strong><small>Verified customer</small></div></div></div>
       <div class="t-card"><svg class="q" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
-        <div class="stars">★★★★★</div><blockquote>Prompt emergency service.</blockquote>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><blockquote>Prompt emergency service.</blockquote>
         <div class="who"><span class="av">DF</span><div><strong>Di Fowler</strong><small>Verified customer</small></div></div></div>
       <div class="t-card"><svg class="q" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
-        <div class="stars">★★★★★</div><blockquote>On time – job done well. Thanks KD.</blockquote>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><blockquote>On time – job done well. Thanks KD.</blockquote>
         <div class="who"><span class="av">KL</span><div><strong>Karl Lenz</strong><small>Verified customer</small></div></div></div>
       <div class="t-card"><svg class="q" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
-        <div class="stars">★★★★★</div><blockquote>Good service, friendly and professional.</blockquote>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><blockquote>Good service, friendly and professional.</blockquote>
         <div class="who"><span class="av">SB</span><div><strong>Steven Bubalo</strong><small>Verified customer</small></div></div></div>
       <div class="t-card"><svg class="q" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
-        <div class="stars">★★★★★</div><blockquote>Professional services.</blockquote>
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><blockquote>Professional services.</blockquote>
         <div class="who"><span class="av">JM</span><div><strong>Jose &amp; Martha</strong><small>Verified customer</small></div></div></div>
     </div>
     <div class="t-nav">
@@ -458,17 +577,17 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
       <h2>Recent jobs around <span class="red">Cockburn</span></h2>
     </div>
     <div class="projects-grid">
-      <div class="proj reveal"><div class="ph"><img src="assets/img/hot-water.jpg" alt="Hot water system installation" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/hot-water.jpg" alt="Hot water system installation" loading="lazy"></div>
         <div class="body"><span class="tag">Hot water</span><h3>Hot water system install</h3><p>New hot water unit installed and plumbed in against a brick exterior wall.</p></div></div>
-      <div class="proj reveal"><div class="ph"><img src="assets/img/kitchen-sink.jpg" alt="Double kitchen sink with pull-down mixer" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/kitchen-sink.jpg" alt="Double kitchen sink with pull-down mixer" loading="lazy"></div>
         <div class="body"><span class="tag">Plumbing</span><h3>Kitchen sink &amp; mixer</h3><p>Double bowl sink and pull-down mixer plumbed into a new kitchen.</p></div></div>
-      <div class="proj reveal"><div class="ph"><img src="assets/img/roots-removed.jpg" alt="Tree roots pulled from a blocked drain" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/roots-removed.jpg" alt="Tree roots pulled from a blocked drain" loading="lazy"></div>
         <div class="body"><span class="tag">Blocked drain</span><h3>Tree root removal</h3><p>A thick mat of roots cleared out of a blocked drain line.</p></div></div>
-      <div class="proj reveal"><div class="ph"><img src="assets/img/drain-jetting.jpg" alt="Drain jetter hose in an outdoor gully" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/drain-jetting.jpg" alt="Drain jetter hose in an outdoor gully" loading="lazy"></div>
         <div class="body"><span class="tag">Drains</span><h3>High-pressure drain jetting</h3><p>Jetting an outdoor gully to clear built-up debris and restore flow.</p></div></div>
-      <div class="proj reveal"><div class="ph"><img src="assets/img/pipe-inspection.jpg" alt="View inside a drain pipe" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/pipe-inspection.jpg" alt="View inside a drain pipe" loading="lazy"></div>
         <div class="body"><span class="tag">Inspection</span><h3>Pipe inspection</h3><p>Looking inside the line to locate the blockage before clearing.</p></div></div>
-      <div class="proj reveal"><div class="ph"><img src="assets/img/excavator.jpg" alt="Mini excavator digging beside a house" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/excavator.jpg" alt="Mini excavator digging beside a house" loading="lazy"></div>
         <div class="body"><span class="tag">Excavation</span><h3>Drain excavation</h3><p>Mini excavator used to reach and repair underground pipework.</p></div></div>
     </div>
   </div>
@@ -543,6 +662,7 @@ footer .contact svg{width:18px;fill:var(--red);flex-shrink:0;margin-top:4px}
   </div>
 </footer>
 
+<button id="toTop" aria-label="Back to top" onclick="window.scrollTo({top:0})">↑</button>
 <a href="tel:0402142510" class="float-call" aria-label="Call KD Plumbing &amp; Gas"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg></a>
 
 <script>
@@ -570,6 +690,58 @@ function slideT(dir){
 let tAuto = setInterval(() => slideT(1), 5000);
 track.addEventListener('pointerenter', () => clearInterval(tAuto));
 track.addEventListener('pointerleave', () => tAuto = setInterval(() => slideT(1), 5000));
+
+
+// Preloader
+window.addEventListener('load', () => setTimeout(() => document.getElementById('preloader').classList.add('hide'), 500));
+setTimeout(() => document.getElementById('preloader').classList.add('hide'), 3500);
+
+// Scroll progress, header shrink, back to top
+const prog = document.getElementById('progress'), hdr = document.querySelector('header'), toTop = document.getElementById('toTop');
+addEventListener('scroll', () => {
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  prog.style.width = (y / h * 100) + '%';
+  hdr.classList.toggle('shrink', y > 80);
+  toTop.classList.toggle('show', y > 600);
+}, {passive:true});
+
+// Rotating word
+const words = ['Plumbing','Gas Fitting','Hot Water','Blocked Drains','Emergencies'];
+let wi = 0; const rot = document.getElementById('rotator');
+setInterval(() => { rot.classList.add('out'); setTimeout(() => { wi = (wi+1) % words.length; rot.textContent = words[wi]; rot.classList.remove('out'); }, 350); }, 2200);
+
+// Rising drops
+const pc = document.getElementById('particles');
+for (let i = 0; i < 18; i++) {
+  const d = document.createElement('i');
+  d.style.left = Math.random()*100 + '%';
+  d.style.animationDuration = (8 + Math.random()*10) + 's';
+  d.style.animationDelay = (-Math.random()*15) + 's';
+  const sc = .5 + Math.random(); d.style.width = 8*sc + 'px'; d.style.height = 11*sc + 'px';
+  pc.appendChild(d);
+}
+
+// Stagger reveal delays inside grids
+document.querySelectorAll('.services-grid,.projects-grid,.stats-grid').forEach(g =>
+  [...g.children].forEach((c, i) => c.style.transitionDelay = (i % 3) * .12 + 's'));
+
+// 3D tilt on service cards
+if (matchMedia('(hover:hover)').matches) document.querySelectorAll('.tilt').forEach(c => {
+  c.addEventListener('mousemove', e => {
+    const r = c.getBoundingClientRect(), x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+    c.style.transform = `perspective(800px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-8px)`;
+  });
+  c.addEventListener('mouseleave', () => c.style.transform = '');
+});
+
+// Counters
+const co = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting) return;
+  const el = en.target, to = +el.dataset.to; let n = 0; const st = Math.max(1, Math.ceil(to/40));
+  const t = setInterval(() => { n = Math.min(to, n+st); el.textContent = n; if (n >= to) clearInterval(t); }, 35);
+  co.unobserve(el);
+}), {threshold:.6});
+document.querySelectorAll('.count').forEach(el => co.observe(el));
 
 const io = new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
