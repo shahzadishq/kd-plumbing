@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KD Plumbing &amp; Gas | Plumber &amp; Gas Fitter in Yangebup &amp; Cockburn, WA</title>
@@ -144,7 +145,7 @@ nav a:hover{color:var(--red)}nav a:hover::after{width:100%}
 .stats::after{content:"";position:absolute;right:-60px;top:-80px;width:340px;height:340px;background:url('assets/logo-icon.png') center/contain no-repeat;opacity:.12;filter:grayscale(1) brightness(3)}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;position:relative;z-index:1}
 .stat strong{font-family:var(--head);font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;font-style:italic;line-height:1;display:block;margin-bottom:6px}
-.stat span{font-family:var(--head);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;font-size:.92rem;opacity:.95}
+.stat>span{font-family:var(--head);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;font-size:.92rem;opacity:.95}
 
 /* Testimonials */
 .testimonials{background:var(--black);color:#fff;position:relative;overflow:hidden}
@@ -279,9 +280,6 @@ header.shrink .logo img{height:46px}
 @keyframes kenburns{from{transform:scale(1) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1%)}}
 .hero::after{animation:roo-float 6s ease-in-out infinite}
 @keyframes roo-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-24px) rotate(-4deg)}}
-.hero .anim{opacity:0;transform:translateY(40px);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
-.hero .anim.d1{animation-delay:.15s}.hero .anim.d2{animation-delay:.3s}.hero .anim.d3{animation-delay:.45s}.hero .anim.d4{animation-delay:.6s}.hero .anim.d5{animation-delay:.75s}
-.quote-card.anim{transform:translateX(60px);animation:left 1s cubic-bezier(.2,.7,.2,1) .5s forwards}
 @keyframes up{to{opacity:1;transform:none}}
 @keyframes left{to{opacity:1;transform:none}}
 .rotator{display:inline-block;color:#fff;border-bottom:2px solid var(--red);min-width:8ch;transition:opacity .35s,transform .35s}
@@ -362,10 +360,105 @@ header.shrink .logo img{height:46px}
 
 @media(max-width:600px){.marquee span{font-size:1.1rem}.scroll-down{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero .anim,.quote-card.anim,.reveal{opacity:1!important;transform:none!important}.t-card .stars span{opacity:1;transform:none}}
+
+/* ===== Premium layer ===== */
+body.loading{overflow:hidden}
+#preloader{background:transparent}
+#preloader .panel{position:absolute;left:0;right:0;height:50.5%;background:var(--black);transition:transform 1s cubic-bezier(.77,0,.18,1)}
+#preloader .panel.top{top:0}#preloader .panel.bot{bottom:0}
+#preloader .center{position:relative;z-index:2;text-align:center;transition:opacity .4s,transform .6s}
+#preloader .pct{font-family:var(--head);font-weight:900;font-style:italic;color:#fff;font-size:3.2rem;line-height:1;margin-top:18px}
+#preloader .pct small{color:var(--red);font-size:1.4rem}
+#preloader .tag{color:#777;font-size:.75rem;letter-spacing:4px;text-transform:uppercase;margin-top:8px}
+#preloader.open .panel.top{transform:translateY(-100%)}
+#preloader.open .panel.bot{transform:translateY(100%)}
+#preloader.open .center{opacity:0;transform:scale(.85)}
+#preloader.hide{opacity:1;visibility:hidden;transition:visibility 0s 1.1s}
+
+.grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-4%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(4%,2%)}100%{transform:translate(0,0)}}
+
+/* custom cursor */
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:1000;border-radius:50%;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
+.cur-dot{width:8px;height:8px;background:var(--red)}
+.cur-ring{width:40px;height:40px;border:1.5px solid rgba(229,57,53,.7);transition:width .3s,height .3s,background .3s,border-color .3s,opacity .3s;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:.7rem;color:#fff;text-transform:uppercase;letter-spacing:1px}
+body.has-cursor .cur-dot,body.has-cursor .cur-ring{opacity:1}
+.cur-ring.hover{width:70px;height:70px;background:rgba(229,57,53,.15);border-color:var(--red)}
+.cur-ring.view{width:90px;height:90px;background:var(--red);border-color:var(--red)}
+.cur-ring.view::after{content:"View"}
+@media(hover:hover) and (pointer:fine){body.has-cursor,body.has-cursor a,body.has-cursor button{cursor:none}}
+
+/* split text */
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.split .w>span{display:inline-block;will-change:transform}
+.js .split .w>span{transform:translateY(110%) rotate(4deg);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.js .split.in .w>span{transform:none}
+
+/* hero entrance (after preloader) */
+.js .hero .anim{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .quote-card.anim{transform:translateX(60px) rotate(2deg)}
+body.loaded .hero .anim{opacity:1;transform:none}
+body.loaded .hero .anim.d1{transition-delay:.1s}body.loaded .hero .anim.d3{transition-delay:.7s}body.loaded .hero .anim.d4{transition-delay:.85s}body.loaded .hero .anim.d5{transition-delay:1s}body.loaded .quote-card.anim{transition-delay:.6s}
+.hero h1.anim{opacity:1!important;transform:none!important}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(229,57,53,.28),transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);left:30%;top:50%;transition:left .6s ease-out,top .6s ease-out}
+
+/* image curtain reveal */
+.curtain{position:relative;overflow:hidden}
+.js .curtain::after{content:"";position:absolute;inset:0;background:var(--red);transform-origin:right;transition:transform 1.1s cubic-bezier(.77,0,.18,1);z-index:2}
+.js .curtain img,.js .curtain.bgimg{transition:transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.js .curtain img{transform:scale(1.3)}
+.js .curtain.in::after{transform:scaleX(0)}
+.js .curtain.in img{transform:scale(1)}
+.about-media .curtain{border-radius:var(--radius)}
+
+/* service spotlight */
+.svc{--mx:50%;--my:50%}
+.svc::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(300px circle at var(--mx) var(--my),rgba(229,57,53,.14),transparent 60%);opacity:0;transition:opacity .3s}
+.svc:hover::after{opacity:1}
+.svc{border:1px solid transparent;border-bottom-width:4px}
+.svc:hover{border-color:rgba(229,57,53,.25);border-bottom-color:var(--red)}
+
+/* marquee velocity */
+.marquee .track{will-change:transform;animation:none}
+.marquee span{transition:transform .3s}
+
+/* horizontal gallery */
+@media(min-width:1025px){
+  .projects.hscroll{padding:0;position:relative}
+  .projects.hscroll .h-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:70px}
+  .projects.hscroll .section-head{margin-bottom:34px;max-width:none}
+  .projects.hscroll .projects-grid{display:flex;gap:30px;width:max-content;will-change:transform}
+  .projects.hscroll .proj{width:400px;flex-shrink:0}
+  .projects.hscroll .proj .ph{height:330px}
+  .h-progress{height:3px;background:#ddd;margin-top:34px;border-radius:3px;overflow:hidden;width:min(1200px,92%);margin-left:auto;margin-right:auto}
+  .h-progress i{display:block;height:100%;width:0;background:var(--red)}
+  .h-count{font-family:var(--head);font-weight:900;font-style:italic;font-size:1rem;color:var(--muted);float:right;margin-top:-60px}
+  .h-count b{color:var(--red);font-size:2rem}
+}
+.h-progress,.h-count{display:none}
+@media(min-width:1025px){.hscroll .h-progress,.hscroll .h-count{display:block}}
+
+/* section number watermark */
+.services,.about,.faq{position:relative}
+.bigword{position:absolute;font-family:var(--head);font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(6rem,16vw,15rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(0,0,0,.06);white-space:nowrap;pointer-events:none;user-select:none;z-index:0}
+.services .container,.about .container,.faq .container{position:relative;z-index:1}
+
+/* line draw under section heads */
+.section-head h2::after{content:"";display:block;width:0;height:4px;background:var(--red);margin-top:18px;transition:width 1s .5s cubic-bezier(.2,.8,.2,1)}
+.section-head.center h2::after{margin-left:auto;margin-right:auto}
+.section-head h2.in::after{width:70px}
+
+
+html,body{overflow-x:clip}
+.rotator{white-space:nowrap}
+@media(max-width:600px){.hero .eyebrow{flex-wrap:wrap;font-size:.78rem;letter-spacing:1.5px}.rotator{min-width:0}.bigword{display:none}}
+@media(prefers-reduced-motion:reduce){.js .split .w>span,.js .hero .anim,.js .curtain img{transform:none!important;opacity:1!important}.js .curtain::after{display:none}.grain{display:none}}
 </style>
 </head>
-<body>
-<div id="preloader"><div><img class="roo" src="assets/logo-icon.png" alt=""><div class="shadow"></div><div class="bar"></div></div></div>
+<body class="loading">
+<div id="preloader"><div class="panel top"></div><div class="panel bot"></div><div class="center"><img class="roo" src="assets/logo-icon.png" alt=""><div class="shadow"></div><div class="pct"><span id="pct">0</span><small>%</small></div><div class="tag">KD Plumbing &amp; Gas</div></div></div>
+<div class="grain"></div>
+<div class="cur-dot"></div><div class="cur-ring"></div>
 <div id="progress"></div>
 
 <div class="topbar">
@@ -405,12 +498,13 @@ header.shrink .logo img{height:46px}
 </header>
 
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" id="heroBg"></div>
   <div class="particles" id="particles"></div>
+  <div class="hero-glow" id="heroGlow"></div>
   <div class="container">
     <div>
       <div class="eyebrow anim d1"><span class="rotator" id="rotator">Plumbing</span>&nbsp;· Yangebup &amp; Cockburn</div>
-      <h1 class="anim d2">Local, trusted &amp; <span class="red">ready when you need us.</span></h1>
+      <h1 class="anim d2 split" id="heroTitle">Local, trusted &amp; <span class="red">ready when you need us.</span></h1>
       <p class="lead anim d3">Reliable, high-quality plumbing and gas solutions across the region, built on experience, precision and long-term customer trust. Whether it's urgent work or a planned upgrade, we get the job done properly the first time.</p>
       <div class="actions anim d4">
         <a href="tel:0402142510" class="btn btn-red">Call 0402 142 510</a>
@@ -454,10 +548,11 @@ header.shrink .logo img{height:46px}
 
 
 <section class="services" id="services">
+  <div class="bigword" data-speed="0.25" style="top:40px;left:-2%">Services</div>
   <div class="container">
-    <div class="section-head center reveal">
+    <div class="section-head center">
       <div class="eyebrow">What we do</div>
-      <h2>Plumbing &amp; gas done <span class="red">properly</span> the first time</h2>
+      <h2 class="split">Plumbing &amp; gas done <span class="red">properly</span> the first time</h2>
     </div>
     <div class="services-grid">
       <div class="svc reveal tilt"><span class="num">01</span>
@@ -483,14 +578,15 @@ header.shrink .logo img{height:46px}
 </section>
 
 <section class="about" id="about">
+  <div class="bigword" data-speed="-0.2" style="bottom:20px;right:-3%">Local</div>
   <div class="container">
     <div class="about-media reveal left">
-      <img src="assets/img/tradie-roots.jpg" alt="KD Plumbing &amp; Gas plumber holding tree roots removed from a blocked drain">
+      <div class="curtain"><img data-speed="-0.06" src="assets/img/tradie-roots.jpg" alt="KD Plumbing &amp; Gas plumber holding tree roots removed from a blocked drain"></div>
       <div class="badge"><strong>100%</strong><span>Local business</span></div>
     </div>
     <div class="reveal right">
       <div class="eyebrow">About KD Plumbing &amp; Gas</div>
-      <h2>Your local plumbers in <span class="red">Yangebup</span></h2>
+      <h2 class="split">Your local plumbers in <span class="red">Yangebup</span></h2>
       <p>KD Plumbing &amp; Gas is a local plumbing and gas business proudly servicing Yangebup and the Cockburn area. Our focus is simple: <strong>get the job done properly the first time.</strong> No shortcuts, clear communication and tidy work every time.</p>
       <ul class="checks">
         <li>Licensed professionals</li>
@@ -511,10 +607,10 @@ header.shrink .logo img{height:46px}
 
 <section class="feature">
   <div class="wrap">
-    <div class="img" role="img" aria-label="Drain jetter clearing a blocked drain under dug-up paving"></div>
+    <div class="img curtain bgimg" role="img" aria-label="Drain jetter clearing a blocked drain under dug-up paving"></div>
     <div class="txt reveal right">
       <div class="eyebrow">Blocked drains</div>
-      <h2>Tree roots? Blockages? <span class="red">We clear them.</span></h2>
+      <h2 class="split">Tree roots? Blockages? <span class="red">We clear them.</span></h2>
       <p>Slow drains and overflowing gullies are often caused by tree roots and built-up debris. We use high-pressure drain jetting and pipe inspection to find the problem and clear it properly, not just push it further down the line.</p>
       <ul>
         <li>High-pressure jetting</li>
@@ -541,9 +637,9 @@ header.shrink .logo img{height:46px}
 <!-- Testimonials -->
 <section class="testimonials" id="reviews">
   <div class="container">
-    <div class="section-head center reveal">
+    <div class="section-head center">
       <div class="eyebrow">Testimonials</div>
-      <h2>What our customers say</h2>
+      <h2 class="split">What our customers say</h2>
       <div class="rating-summary"><span class="stars">★★★★★</span>Rated 5 stars by locals</div>
     </div>
     <div class="t-track reveal" id="tTrack">
@@ -570,34 +666,38 @@ header.shrink .logo img{height:46px}
   </div>
 </section>
 
-<section class="projects" id="projects">
+<section class="projects hscroll" id="projects">
+ <div class="h-pin">
   <div class="container">
-    <div class="section-head reveal">
+    <div class="section-head">
       <div class="eyebrow">Our work</div>
-      <h2>Recent jobs around <span class="red">Cockburn</span></h2>
+      <h2 class="split">Recent jobs around <span class="red">Cockburn</span></h2>
+      <div class="h-count"><b id="hNum">01</b> / 06</div>
     </div>
     <div class="projects-grid">
-      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/hot-water.jpg" alt="Hot water system installation" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph curtain"><img src="assets/img/hot-water.jpg" alt="Hot water system installation" loading="lazy"></div>
         <div class="body"><span class="tag">Hot water</span><h3>Hot water system install</h3><p>New hot water unit installed and plumbed in against a brick exterior wall.</p></div></div>
-      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/kitchen-sink.jpg" alt="Double kitchen sink with pull-down mixer" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph curtain"><img src="assets/img/kitchen-sink.jpg" alt="Double kitchen sink with pull-down mixer" loading="lazy"></div>
         <div class="body"><span class="tag">Plumbing</span><h3>Kitchen sink &amp; mixer</h3><p>Double bowl sink and pull-down mixer plumbed into a new kitchen.</p></div></div>
-      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/roots-removed.jpg" alt="Tree roots pulled from a blocked drain" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph curtain"><img src="assets/img/roots-removed.jpg" alt="Tree roots pulled from a blocked drain" loading="lazy"></div>
         <div class="body"><span class="tag">Blocked drain</span><h3>Tree root removal</h3><p>A thick mat of roots cleared out of a blocked drain line.</p></div></div>
-      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/drain-jetting.jpg" alt="Drain jetter hose in an outdoor gully" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph curtain"><img src="assets/img/drain-jetting.jpg" alt="Drain jetter hose in an outdoor gully" loading="lazy"></div>
         <div class="body"><span class="tag">Drains</span><h3>High-pressure drain jetting</h3><p>Jetting an outdoor gully to clear built-up debris and restore flow.</p></div></div>
-      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/pipe-inspection.jpg" alt="View inside a drain pipe" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph curtain"><img src="assets/img/pipe-inspection.jpg" alt="View inside a drain pipe" loading="lazy"></div>
         <div class="body"><span class="tag">Inspection</span><h3>Pipe inspection</h3><p>Looking inside the line to locate the blockage before clearing.</p></div></div>
-      <div class="proj reveal zoom"><div class="ph"><img src="assets/img/excavator.jpg" alt="Mini excavator digging beside a house" loading="lazy"></div>
+      <div class="proj reveal zoom"><div class="ph curtain"><img src="assets/img/excavator.jpg" alt="Mini excavator digging beside a house" loading="lazy"></div>
         <div class="body"><span class="tag">Excavation</span><h3>Drain excavation</h3><p>Mini excavator used to reach and repair underground pipework.</p></div></div>
     </div>
   </div>
+ <div class="h-progress"><i id="hBar"></i></div>
+ </div>
 </section>
 
 <section class="faq" id="faq">
   <div class="container">
     <div class="faq-intro reveal">
       <div class="eyebrow">FAQ</div>
-      <h2>Common questions</h2>
+      <h2 class="split">Common questions</h2>
       <p>Can't find what you're after? Give us a call and we'll be happy to help.</p>
       <a href="tel:0402142510" class="btn btn-dark">Call 0402 142 510</a>
     </div>
@@ -611,9 +711,9 @@ header.shrink .logo img{height:46px}
 </section>
 
 <section class="cta">
-  <div class="container reveal">
+  <div class="container">
     <div class="eyebrow" style="justify-content:center">Urgent work or planned upgrades</div>
-    <h2>Get the job done <span class="red">properly</span> the first time</h2>
+    <h2 class="split">Get the job done <span class="red">properly</span> the first time</h2>
     <p>Local, trusted plumbing and gas services across Yangebup and the Cockburn area. Call KD Plumbing &amp; Gas today.</p>
     <div class="actions">
       <a href="tel:0402142510" class="btn btn-red">Call 0402 142 510</a>
@@ -693,8 +793,7 @@ track.addEventListener('pointerleave', () => tAuto = setInterval(() => slideT(1)
 
 
 // Preloader
-window.addEventListener('load', () => setTimeout(() => document.getElementById('preloader').classList.add('hide'), 500));
-setTimeout(() => document.getElementById('preloader').classList.add('hide'), 3500);
+
 
 // Scroll progress, header shrink, back to top
 const prog = document.getElementById('progress'), hdr = document.querySelector('header'), toTop = document.getElementById('toTop');
@@ -742,6 +841,144 @@ const co = new IntersectionObserver(es => es.forEach(en => {
   co.unobserve(el);
 }), {threshold:.6});
 document.querySelectorAll('.count').forEach(el => co.observe(el));
+
+
+/* ===== Premium JS ===== */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+// Split text into masked words (keeps inner spans like .red)
+function splitWords(el){
+  const walk = node => {
+    [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+          const w = document.createElement('span'); w.className = 'w';
+          const i = document.createElement('span'); i.textContent = part; w.appendChild(i); frag.appendChild(w);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1 && !n.classList.contains('w') && !n.classList.contains('h-count')) walk(n);
+    });
+  };
+  walk(el);
+  el.querySelectorAll('.w>span').forEach((s, k) => s.style.transitionDelay = (k * 0.06) + 's');
+}
+document.querySelectorAll('.split').forEach(splitWords);
+
+// Preloader with % counter and curtain exit
+(function(){
+  const pre = document.getElementById('preloader'), pct = document.getElementById('pct');
+  let n = 0, done = false, loaded = false;
+  addEventListener('load', () => loaded = true);
+  setTimeout(() => loaded = true, 2500);
+  const tick = () => {
+    n += loaded ? 4 : (n < 80 ? 2 : 0.3);
+    if (n >= 100) n = 100;
+    pct.textContent = Math.floor(n);
+    if (n < 100) requestAnimationFrame(tick); else finish();
+  };
+  const finish = () => {
+    if (done) return; done = true;
+    setTimeout(() => {
+      pre.classList.add('open');
+      document.body.classList.remove('loading');
+      setTimeout(() => { document.body.classList.add('loaded'); document.getElementById('heroTitle').classList.add('in'); }, 350);
+      setTimeout(() => pre.classList.add('hide'), 1100);
+    }, 200);
+  };
+  reduce ? finish() : requestAnimationFrame(tick);
+})();
+
+// Scroll-triggered reveals for split headings & curtains
+const io2 = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add('in'); io2.unobserve(en.target); }
+}), { threshold: .25, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.split:not(#heroTitle), .curtain').forEach(el => io2.observe(el));
+document.querySelectorAll('.projects-grid .curtain').forEach((c, i) => c.style.setProperty('--d', i));
+
+// Custom cursor + magnetic buttons
+if (fine && !reduce) {
+  document.body.classList.add('has-cursor');
+  const dot = document.querySelector('.cur-dot'), ring = document.querySelector('.cur-ring');
+  let mx = innerWidth/2, my = innerHeight/2, rx = mx, ry = my;
+  addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`; });
+  (function loop(){ rx += (mx - rx) * .15; ry += (my - ry) * .15; ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,summary,input,select,textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+  document.querySelectorAll('.proj').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('view'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('view'));
+  });
+  document.querySelectorAll('.btn, .emergency .ic, .t-nav button').forEach(b => {
+    b.addEventListener('mousemove', e => {
+      const r = b.getBoundingClientRect();
+      b.style.transform = `translate(${(e.clientX - r.left - r.width/2) * .25}px, ${(e.clientY - r.top - r.height/2) * .35}px)`;
+    });
+    b.addEventListener('mouseleave', () => b.style.transform = '');
+  });
+  // service spotlight
+  document.querySelectorAll('.svc').forEach(c => c.addEventListener('mousemove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+  // hero glow follows mouse
+  const hero = document.querySelector('.hero'), glow = document.getElementById('heroGlow');
+  hero.addEventListener('mousemove', e => { const r = hero.getBoundingClientRect(); glow.style.left = (e.clientX - r.left) + 'px'; glow.style.top = (e.clientY - r.top) + 'px'; });
+}
+
+// Parallax, marquee velocity, horizontal gallery — one rAF loop
+(function(){
+  const heroBg = document.getElementById('heroBg');
+  const speeds = [...document.querySelectorAll('[data-speed]')];
+  const track = document.querySelector('.marquee .track');
+  const sec = document.querySelector('.projects.hscroll'), grid = sec.querySelector('.projects-grid');
+  const bar = document.getElementById('hBar'), num = document.getElementById('hNum');
+  const desk = matchMedia('(min-width:1025px)');
+  let lastY = scrollY, vel = 0, mPos = 0, dist = 0;
+
+  function sizeGallery(){
+    if (desk.matches && !reduce) {
+      grid.style.transform = '';
+      dist = Math.max(0, grid.scrollWidth - grid.parentElement.clientWidth);
+      sec.style.height = (innerHeight + dist) + 'px';
+      sec.classList.add('hscroll');
+      sec.querySelectorAll('.curtain').forEach(c => c.classList.add('in'));
+    } else { sec.style.height = ''; grid.style.transform = ''; dist = 0; }
+  }
+  addEventListener('resize', sizeGallery); addEventListener('load', sizeGallery); sizeGallery();
+
+  function frame(){
+    const y = scrollY;
+    vel += ((y - lastY) - vel) * .1; lastY = y;
+    if (!reduce) {
+      if (y < innerHeight * 1.2) heroBg.style.transform = `translateY(${y * .35}px)`;
+      speeds.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        const c = r.top + r.height/2 - innerHeight/2;
+        el.style.transform = `translateY(${c * parseFloat(el.dataset.speed)}px)` + (el.tagName === 'IMG' ? ' scale(1.12)' : '');
+      });
+      // marquee: base speed + scroll velocity, direction aware
+      mPos -= 1.1 + Math.abs(vel) * .35;
+      const half = track.scrollWidth / 2;
+      if (-mPos >= half) mPos += half;
+      track.style.transform = `translateX(${mPos}px) skewX(${Math.max(-12, Math.min(12, -vel * .5))}deg)`;
+    }
+    if (dist > 0) {
+      const top = sec.offsetTop, p = Math.min(1, Math.max(0, (y - top) / dist));
+      grid.style.transform = `translateX(${-p * dist}px)`;
+      bar.style.width = (p * 100) + '%';
+      num.textContent = String(Math.min(6, Math.floor(p * 5.999) + 1)).padStart(2, '0');
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
 
 const io = new IntersectionObserver(es => es.forEach(en => {
   if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
